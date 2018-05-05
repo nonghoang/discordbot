@@ -38,5 +38,15 @@ export function getMessageWithDiscordId(discordId) {
 }
 
 export function getMessageNotPosted() {
-    return Message.find({posted: false});
+    return Message.find({
+        posted: false
+    }).sort({
+        timestamp: 'desc'
+    }).exec();
+}
+
+export function updatePosted(id) {
+    return Message.findByIdAndUpdate(id, {
+        posted: true
+    });
 }

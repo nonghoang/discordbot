@@ -12,7 +12,7 @@ export async function pullmessage() {
         'authorization': 'NDA4NTU4NTc0MTE4MzcxMzQ4.DVTA5A.9Nfuh0pLhJvamX-zlSkZ8ZI3Xyc'
     };
 
-    const data = await fetch('https://discordapp.com/api/v6/channels/442243825272881155/messages?limit=3', {
+    const data = await fetch('https://discordapp.com/api/v6/channels/442243825272881155/messages?limit=50', {
         method: 'GET',
         headers: headers
     })
@@ -45,6 +45,6 @@ async function create(message) {
         author: JSON.stringify(message.author),
         content: message.content,
         channel_id: message.channel_id,
-        created_date: message.created_date
+        created_date: new Date()
     });
 }
