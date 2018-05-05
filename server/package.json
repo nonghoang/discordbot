@@ -1,0 +1,46 @@
+{
+  "name": "discordbot",
+  "version": "0.0.1",
+  "description": "discordbot service",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js --watch . --exec babel-node",
+    "build": "yarn build:config && yarn build:models && yarn build:modules && yarn build:services && yarn build:index",
+    "build:config": "babel ./config -d build/config",
+    "build:models": "babel ./models -d build/models",
+    "build:modules": "babel ./modules -d build/modules",
+    "build:services": "babel ./services -d build/services",
+    "build:index": "babel index.js -d build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hoangnv1203/discordbot.git"
+  },
+  "author": "hoangnong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hoangnv1203/discordbot/issues"
+  },
+  "homepage": "https://github.com/hoangnv1203/discordbot#readme",
+  "dependencies": {
+    "babel-cli": "6.26.0",
+    "bluebird": "3.5.1",
+    "body-parser": "1.18.2",
+    "cors": "2.8.4",
+    "express": "3.21.2",
+    "express-http-proxy": "1.1.0",
+    "jsonwebtoken": "8.2.0",
+    "mongoose": "5.0.7",
+    "morgan": "1.9.0",
+    "node-fetch": "2.1.2",
+    "nodemon": "1.17.1",
+    "recursive-config": "1.0.1",
+    "request": "2.85.0",
+    "validate-currency-code": "0.1.0"
+  },
+  "devDependencies": {
+    "babel-plugin-module-resolver": "3.1.0",
+    "babel-preset-env": "1.6.1",
+    "babel-preset-stage-2": "6.24.1"
+  }
+}
