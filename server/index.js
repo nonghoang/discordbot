@@ -15,8 +15,14 @@ system.use(bodyParser.urlencoded({
     extended: true
 }));
 system.use('/api', api);
-system.get('/', pullmessage);
+system.get('/', (req, res, next) => {
+    res.json('Landing pages');
+});
 system.get('/messages', getMessages);
+
+setInterval(() => {
+    pullmessage();
+}, 5000);
 
 system.use(morgan('dev'));
 system.listen(SERVER_PORT, () => console.log(`Server listen to :${SERVER_PORT}`));

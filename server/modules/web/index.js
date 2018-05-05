@@ -5,7 +5,8 @@ import {
     getMessageNotPosted
 } from 'services/message';
 
-export async function pullmessage(req, res, next) {
+export async function pullmessage() {
+    console.log('======START PULL MESSAGES======');
     const headers = {
         'accept-language': 'en-US',
         'authorization': 'NDA4NTU4NTc0MTE4MzcxMzQ4.DVTA5A.9Nfuh0pLhJvamX-zlSkZ8ZI3Xyc'
@@ -20,8 +21,6 @@ export async function pullmessage(req, res, next) {
     json.forEach((message) => {
         create(message);
     })
-
-    res.json('Landing pages');
 }
 
 export async function getMessages(req, res, next) {
