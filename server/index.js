@@ -6,7 +6,13 @@ import {
 import mongoose from 'mongoose';
 import api from 'modules/api';
 import bodyParser from 'body-parser';
-import { pullmessage, getMessages } from 'modules/web';
+import {
+    pullmessage,
+    getMessages
+} from 'modules/web';
+import {
+    bot
+} from 'modules/bot'
 
 const system = express();
 
@@ -20,9 +26,10 @@ system.get('/', (req, res, next) => {
 });
 system.get('/messages', getMessages);
 
-setInterval(() => {
-    pullmessage();
-}, 5000);
+// setInterval(() => {
+//     pullmessage();
+// }, 5000);
+bot();
 
 system.use(morgan('dev'));
 system.listen(SERVER_PORT, () => console.log(`Server listen to :${SERVER_PORT}`));
