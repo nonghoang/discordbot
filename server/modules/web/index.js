@@ -4,17 +4,17 @@ import {
     getMessageWithDiscordId,
     getMessageNotPosted
 } from 'services/message';
+import {
+    URL_CHANANEL,
+    HEADERS
+} from 'config/config';
 
 export async function pullmessage() {
     console.log('======START PULL MESSAGES======');
-    const headers = {
-        'accept-language': 'en-US',
-        'authorization': 'NDA4NTU4NTc0MTE4MzcxMzQ4.DVTA5A.9Nfuh0pLhJvamX-zlSkZ8ZI3Xyc'
-    };
 
-    const data = await fetch('https://discordapp.com/api/v6/channels/442243825272881155/messages?limit=50', {
+    const data = await fetch(URL_CHANANEL, {
         method: 'GET',
-        headers: headers
+        headers: HEADERS
     })
 
     const json = await data.json();
