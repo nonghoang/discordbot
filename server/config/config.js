@@ -7,3 +7,4 @@ export const HEADERS = {
     'authorization': AUTHORIZATION
 };
 export const BOT_TOKEN = 'NDQyMjQ2NTMwMDUzOTYzNzc3.DdAuYw.DwMkUsPnV7kzOsxEQCVK6vt1vZw';
+export const CHANNEL_ID = '442243825272881155';

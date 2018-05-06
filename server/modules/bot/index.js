@@ -1,5 +1,8 @@
 import Discord from 'discord.js';
-import { BOT_TOKEN } from 'config/config';
+import {
+    BOT_TOKEN,
+    CHANNEL_ID
+} from 'config/config';
 import {
     getMessageNotPosted,
     updatePosted
@@ -11,17 +14,11 @@ export function bot() {
 
     client.on('ready', () => {
         console.log(`Logged in as ${client.user.tag}!`);
-        const channel = client.channels.get('442243825272881155');
+        const channel = client.channels.get(CHANNEL_ID);
 
         setInterval(() => {
             handlePostMessage(channel);
         }, 1000);
-    });
-
-    client.on('message', msg => {
-        if (msg.content === 'ping') {
-            msg.reply('Hello discord');
-        }
     });
 
     client.login(BOT_TOKEN);
