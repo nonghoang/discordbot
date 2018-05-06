@@ -48,5 +48,5 @@ export function getMessageNotPosted() {
 export function updatePosted(id) {
     return Message.findByIdAndUpdate(id, {
         posted: true
-    });
+    }).exec();
 }

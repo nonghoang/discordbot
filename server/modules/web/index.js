@@ -5,22 +5,21 @@ import {
     getMessageNotPosted
 } from 'services/message';
 import {
-    URL_CHANANEL,
     HEADERS
 } from 'config/config';
 
-export async function pullmessage() {
+export async function pullmessage(URL_CHANANEL) {
     console.log('======START PULL MESSAGES======');
 
     const data = await fetch(URL_CHANANEL, {
         method: 'GET',
         headers: HEADERS
-    })
+    });
 
     const json = await data.json();
     json.forEach((message) => {
         create(message);
-    })
+    });
 }
 
 export async function getMessages(req, res, next) {
