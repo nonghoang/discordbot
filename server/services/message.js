@@ -2,6 +2,7 @@ import Message from 'models/message';
 
 export function create(options) {
     let {
+        post_channel_id,
         attachments,
         timestamp,
         mention_everyone,
@@ -17,6 +18,7 @@ export function create(options) {
     const posted = false;
 
     const message = new Message({
+        post_channel_id,
         attachments,
         timestamp,
         mention_everyone,
@@ -37,9 +39,10 @@ export function getMessageWithDiscordId(discordId) {
     return Message.findOne({discordId: discordId});
 }
 
-export function getMessageNotPosted() {
+export function getMessageNotPosted(channelId) {
     return Message.find({
-        posted: false
+        posted: false,
+        post_channel_id: channelId
     }).sort({
         timestamp: 'desc'
     }).exec();

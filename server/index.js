@@ -1,8 +1,8 @@
 import express from 'express';
 import morgan from 'morgan';
 import {
-    URL_CHANANEL,
-    SERVER_PORT
+    SERVER_PORT,
+    CHANNELS
 } from 'config/config';
 import mongoose from 'mongoose';
 import api from 'modules/api';
@@ -28,7 +28,9 @@ system.get('/', (req, res, next) => {
 system.get('/messages', getMessages);
 
 setInterval(() => {
-    pullmessage(URL_CHANANEL);
+    CHANNELS.forEach((channel) => {
+        pullmessage(channel);
+    });
 }, 5000);
 bot();
 

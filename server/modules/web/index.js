@@ -8,17 +8,15 @@ import {
     HEADERS
 } from 'config/config';
 
-export async function pullmessage(URL_CHANANEL) {
-    console.log('======START PULL MESSAGES======');
-
-    const data = await fetch(URL_CHANANEL, {
+export async function pullmessage(channel) {
+    const data = await fetch(channel.from, {
         method: 'GET',
         headers: HEADERS
     });
 
     const json = await data.json();
     json.forEach((message) => {
-        create(message);
+        create(message, channel.to);
     });
 }
 
@@ -27,7 +25,7 @@ export async function getMessages(req, res, next) {
     res.json(messages);
 }
 
-async function create(message) {
+async function create(message, postChannelId) {
     const data = await getMessageWithDiscordId(message.id);
 
     if (data) {
@@ -35,6 +33,7 @@ async function create(message) {
     }
 
     createMessage({
+        post_channel_id: postChannelId,
         attachments: JSON.stringify(message.attachments),
         timestamp: message.timestamp,
         mention_everyone: message.mention_everyone,

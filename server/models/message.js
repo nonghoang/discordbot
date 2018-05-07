@@ -1,6 +1,9 @@
 import mongoose from 'config/mongoose';
 
 const schema = mongoose.Schema({
+    post_channel_id: {
+        type: String
+    },
     attachments: {
         type: String
     },

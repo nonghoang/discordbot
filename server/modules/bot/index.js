@@ -1,7 +1,7 @@
 import Discord from 'discord.js';
 import {
     BOT_TOKEN,
-    CHANNEL_ID
+    CHANNELS
 } from 'config/config';
 import {
     getMessageNotPosted,
@@ -14,18 +14,21 @@ export function bot() {
 
     client.on('ready', () => {
         console.log(`Logged in as ${client.user.tag}!`);
-        const channel = client.channels.get(CHANNEL_ID);
 
-        setInterval(() => {
-            handlePostMessage(channel);
-        }, 1000);
+        CHANNELS.forEach((item) => {
+            const channel = client.channels.get(item.to);
+
+            setInterval(() => {
+                handlePostMessage(channel, item.to);
+            }, 1000);
+        });
     });
 
     client.login(BOT_TOKEN);
 }
 
-async function handlePostMessage(channel) {
-    const messages = await getMessageNotPosted();
+async function handlePostMessage(channel, channelId) {
+    const messages = await getMessageNotPosted(channelId);
 
     messages.forEach(message => {
         postMessage(message, channel);
