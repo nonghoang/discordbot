@@ -19,3 +19,6 @@ export const CHANNELS = [{
     from: 'https://discordapp.com/api/v6/channels/433299853758562305/messages?limit=5',
     to: '443010077985734667'
 }];
+export const SALTROUNDS = 10;
+export const SESSION_SECRET = 'mysupersecret';
+export const SESSION_TTL = '1h';

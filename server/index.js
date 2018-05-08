@@ -27,12 +27,12 @@ system.get('/', (req, res, next) => {
 });
 system.get('/messages', getMessages);
 
-setInterval(() => {
-    CHANNELS.forEach((channel) => {
-        pullmessage(channel);
-    });
-}, 5000);
-bot();
+// setInterval(() => {
+//     CHANNELS.forEach((channel) => {
+//         pullmessage(channel);
+//     });
+// }, 5000);
+// bot();
 
 system.use(morgan('dev'));
 system.listen(SERVER_PORT, () => console.log(`Server listen to :${SERVER_PORT}`));
