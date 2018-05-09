@@ -32,6 +32,12 @@ async function create(message, postChannelId) {
         return;
     }
 
+    let messageData = message.content;
+
+    if (message.content) {
+        messageData = message.content.replace(/<@.*>/, '');
+    }
+
     createMessage({
         post_channel_id: postChannelId,
         attachments: JSON.stringify(message.attachments),
@@ -41,7 +47,7 @@ async function create(message, postChannelId) {
         pinned: message.pinned,
         edited_timestamp: message.edited_timestamp,
         author: JSON.stringify(message.author),
-        content: message.content,
+        content: messageData,
         channel_id: message.channel_id,
         created_date: new Date()
     });

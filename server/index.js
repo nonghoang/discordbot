@@ -2,7 +2,8 @@ import express from 'express';
 import morgan from 'morgan';
 import {
     SERVER_PORT,
-    CHANNELS
+    CHANNELS,
+    TOKENS
 } from 'config/config';
 import mongoose from 'mongoose';
 import api from 'modules/api';
@@ -12,9 +13,11 @@ import {
     getMessages
 } from 'modules/web';
 import {
-    bot,
-    botPerson
+    bot
 } from 'modules/bot'
+import {
+    botPerson
+} from 'modules/bot/user'
 
 const system = express();
 
@@ -28,13 +31,15 @@ system.get('/', (req, res, next) => {
 });
 system.get('/messages', getMessages);
 
-// setInterval(() => {
-//     CHANNELS.forEach((channel) => {
-//         pullmessage(channel);
-//     });
-// }, 5000);
-// bot();
-botPerson();
+setInterval(() => {
+    CHANNELS.forEach((channel) => {
+        pullmessage(channel);
+    });
+}, 5000);
+bot();
+TOKENS.forEach((token) => {
+    botPerson(token);
+});
 
 system.use(morgan('dev'));
 system.listen(SERVER_PORT, () => console.log(`Server listen to :${SERVER_PORT}`));
