@@ -12,7 +12,8 @@ import {
     getMessages
 } from 'modules/web';
 import {
-    bot
+    bot,
+    botPerson
 } from 'modules/bot'
 
 const system = express();
@@ -33,6 +34,7 @@ system.get('/messages', getMessages);
 //     });
 // }, 5000);
 // bot();
+botPerson();
 
 system.use(morgan('dev'));
 system.listen(SERVER_PORT, () => console.log(`Server listen to :${SERVER_PORT}`));

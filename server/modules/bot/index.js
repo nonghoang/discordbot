@@ -27,6 +27,23 @@ export function bot() {
     client.login(BOT_TOKEN);
 }
 
+export function botPerson() {
+    const client = new Discord.Client();
+
+    client.on('ready', () => {
+        console.log('I am ready!');
+    });
+
+    client.on('message', message => {
+        if (message.content === 'ping') {
+            message.channel.send('pong');
+        }
+    });
+
+
+    client.login('NDQzMjI4NjA3MzMxMDQxMjkx.DdPXpQ.T95at3LWq44UcpeUIYAYIlAbqaU');
+}
+
 async function handlePostMessage(channel, channelId) {
     const messages = await getMessageNotPosted(channelId);
 
