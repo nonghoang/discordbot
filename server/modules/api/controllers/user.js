@@ -1,4 +1,7 @@
-import { create } from 'services/user';
+import {
+    create,
+    getAll
+} from 'services/user';
 
 export async function createUser(req, res, next) {
     let {
@@ -53,4 +56,9 @@ export async function registerUser(req, res, next) {
     res.status(200).json({
         user: user
     });
+}
+
+export async function getUsers(req, res, next) {
+    const users = await getAll();
+    res.status(200).json(users);
 }

@@ -31,15 +31,15 @@ system.get('/', (req, res, next) => {
 });
 system.get('/messages', getMessages);
 
-setInterval(() => {
-    CHANNELS.forEach((channel) => {
-        pullmessage(channel);
-    });
-}, 6000);
-bot();
-TOKENS.forEach((token) => {
-    botPerson(token);
-});
+// setInterval(() => {
+//     CHANNELS.forEach((channel) => {
+//         pullmessage(channel);
+//     });
+// }, 6000);
+// bot();
+// TOKENS.forEach((token) => {
+//     botPerson(token);
+// });
 
 system.use(morgan('dev'));
 system.listen(SERVER_PORT, () => console.log(`Server listen to :${SERVER_PORT}`));

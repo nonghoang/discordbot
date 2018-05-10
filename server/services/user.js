@@ -37,3 +37,7 @@ export function findWithLogin(login) {
 export function getUserById(id) {
     return User.findById(id);
 }
+
+export function getAll() {
+    return User.find();
+}

@@ -11,7 +11,8 @@ import {
 
 import {
     createUser,
-    registerUser
+    registerUser,
+    getUsers
 } from '../controllers/user'
 
 import {
@@ -29,6 +30,7 @@ export default app => {
     app.put('/transaction/status', updateStatusTransaction);
 
     app.post('/user', createUser);
+    app.get('/users', isAuthenticated, getUsers);
     app.post('/register', registerUser);
     app.post('/authenticate', authenticate);
 
