@@ -35,11 +35,11 @@ setInterval(() => {
     CHANNELS.forEach((channel) => {
         pullmessage(channel);
     });
-}, 5000);
+}, 6000);
 bot();
-TOKENS.forEach((token) => {
-    botPerson(token);
-});
+// TOKENS.forEach((token) => {
+//     botPerson(token);
+// });
 
 system.use(morgan('dev'));
 system.listen(SERVER_PORT, () => console.log(`Server listen to :${SERVER_PORT}`));

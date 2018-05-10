@@ -20,7 +20,7 @@ export function bot() {
 
             setInterval(() => {
                 handlePostMessage(channel, item.to);
-            }, 1000);
+            }, 3000);
         });
     });
 
