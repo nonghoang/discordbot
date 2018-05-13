@@ -12,7 +12,9 @@ import {
 import {
     createUser,
     registerUser,
-    getUsers
+    getUsers,
+    updateUsers,
+    changePassword
 } from '../controllers/user'
 
 import {
@@ -31,6 +33,9 @@ export default app => {
 
     app.post('/user', createUser);
     app.get('/users', isAuthenticated, getUsers);
+    app.post('/account', isAuthenticated, updateUsers);
+    app.post('/account/change-password', isAuthenticated, changePassword);
+
     app.post('/register', registerUser);
     app.post('/authenticate', authenticate);
 

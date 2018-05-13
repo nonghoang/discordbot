@@ -41,3 +41,19 @@ export function getUserById(id) {
 export function getAll() {
     return User.find();
 }
+
+export function update(login, query) {
+    return User.update({
+        login: login
+    }, query).exec();
+}
+
+export async function updatePassword(login, newPassword) {
+    const passwordHash = await bcrypt.hash(newPassword, SALTROUNDS);
+
+    return User.update({
+        login: login
+    }, {$set: {
+        password: passwordHash
+    }}).exec();
+}
