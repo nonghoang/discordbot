@@ -1,5 +1,11 @@
 export const SERVER_PORT = 3008;
 export const MONGODB = 'mongodb://localhost/discordbot';
+export const AWS_REGION = 'us-west-2';
+export const AWS_ACCESS_KEY_ID = 'xxx';
+export const AWS_SECRET_KEY = 'xxx';
+export const AWS_EMAIL = 'xxx';
+export const URL_VERIFY_EMAIL = `http://192.168.187.132:${SERVER_PORT}/`;
+
 export const BOT_TOKEN = 'NDQzMDA4MzI3OTgzODI0OTA3.DdH1yw.RwoXzHOMeHsBeifVOyeNLfxeivk';
 export const SALTROUNDS = 10;
 export const SESSION_SECRET = 'mysupersecret';

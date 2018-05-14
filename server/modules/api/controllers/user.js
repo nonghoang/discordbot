@@ -8,6 +8,13 @@ import {
     findWithEmail
 } from 'services/user';
 
+import {
+    create as createActive
+} from 'services/active';
+
+import { send } from 'services/ses';
+import { URL_VERIFY_EMAIL } from 'config/config';
+
 export async function createUser(req, res, next) {
     let {
         login,
@@ -67,13 +74,16 @@ export async function registerUser(req, res, next) {
         login: login,
         password: password,
         email: email,
-        activated: true,
+        activated: false,
         langKey: langKey
     });
 
     if (!user) {
         return res.status(500).json({error: 'Error'});
     }
+
+    handleSendMail(user);
+
     res.status(200).json({
         user: user
     });
@@ -140,4 +150,11 @@ export async function changePassword(req, res, next) {
     res.status(200).json({
         user: updatedUser
     });
+}
+
+async function handleSendMail(user) {
+    const active = await createActive(user._id);
+    const body = `Signalleaks verify email: ${URL_VERIFY_EMAIL}verify/${active._id}`;
+
+    send('Signalleaks verify email', [user.email], body);
 }

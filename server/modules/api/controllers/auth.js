@@ -17,7 +17,7 @@ export async function authenticate(req, res, next) {
 
     const user = await findByUserAndPassword(username, password);
 
-    if (!user) {
+    if (!user || !user.activated) {
         return res.status(400).json({
             message: 'error.validation',
             path: '/api/authenticate',

@@ -23,9 +23,10 @@
   },
   "homepage": "https://github.com/hoangnv1203/discordbot#readme",
   "dependencies": {
+    "aws-sdk": "^2.238.1",
     "babel-cli": "6.26.0",
     "bcrypt": "^2.0.1",
-    "bluebird": "3.5.1",
+    "bluebird": "^3.5.1",
     "body-parser": "1.18.2",
     "cors": "2.8.4",
     "discord.js": "11.3.2",
@@ -39,6 +40,7 @@
     "nodemon": "1.17.1",
     "recursive-config": "1.0.1",
     "request": "2.85.0",
+    "uuid": "^3.2.1",
     "validate-currency-code": "0.1.0"
   },
   "devDependencies": {
