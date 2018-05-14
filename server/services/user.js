@@ -52,6 +52,12 @@ export function update(login, query) {
     }, query).exec();
 }
 
+export function activeUser(id) {
+    return User.findByIdAndUpdate(id, {
+        activated: true
+    }).exec();
+}
+
 export async function updatePassword(login, newPassword) {
     const passwordHash = await bcrypt.hash(newPassword, SALTROUNDS);
 

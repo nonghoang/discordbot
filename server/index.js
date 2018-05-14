@@ -13,6 +13,9 @@ import {
     getMessages
 } from 'modules/web';
 import {
+    verifyEmail
+} from 'modules/web/verify';
+import {
     bot
 } from 'modules/bot'
 import {
@@ -30,6 +33,7 @@ system.get('/', (req, res, next) => {
     res.json('Landing pages');
 });
 system.get('/messages', getMessages);
+system.get('/verify/:activeId', verifyEmail);
 
 // setInterval(() => {
 //     CHANNELS.forEach((channel) => {
