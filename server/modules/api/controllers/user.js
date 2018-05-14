@@ -3,7 +3,9 @@ import {
     getAll,
     update,
     findByUserAndPassword,
-    updatePassword
+    updatePassword,
+    findWithLogin,
+    findWithEmail
 } from 'services/user';
 
 export async function createUser(req, res, next) {
@@ -44,6 +46,22 @@ export async function registerUser(req, res, next) {
         login,
         password
     } = req.body;
+
+    const userLogin = await findWithLogin(login);
+
+    if (userLogin) {
+        return res.status(400).json({
+            type: 'https://www.jhipster.tech/problem/login-already-used'
+        });
+    }
+
+    const userEmail = await findWithEmail(email);
+
+    if (userEmail) {
+        return res.status(400).json({
+            type: 'https://www.jhipster.tech/problem/email-already-used'
+        });
+    }
 
     const user = await create({
         login: login,

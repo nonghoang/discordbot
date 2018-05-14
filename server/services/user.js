@@ -34,6 +34,10 @@ export function findWithLogin(login) {
     return User.findOne({login: login});
 }
 
+export function findWithEmail(email) {
+    return User.findOne({email: email});
+}
+
 export function getUserById(id) {
     return User.findById(id);
 }
