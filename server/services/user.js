@@ -42,8 +42,11 @@ export function getUserById(id) {
     return User.findById(id);
 }
 
-export function getAll() {
-    return User.find();
+export function getUserQuery(page, size, sort) {
+    return User.find({}, {}, {
+        skip: parseInt(page),
+        limit: parseInt(size)
+    }).sort(sort).exec();
 }
 
 export function update(login, query) {

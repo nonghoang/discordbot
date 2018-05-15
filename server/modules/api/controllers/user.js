@@ -1,6 +1,6 @@
 import {
     create,
-    getAll,
+    getUserQuery,
     update,
     findByUserAndPassword,
     updatePassword,
@@ -14,6 +14,7 @@ import {
 
 import { send } from 'services/ses';
 import { URL_VERIFY_EMAIL } from 'config/config';
+import { parseSort } from 'services/util';
 
 export async function createUser(req, res, next) {
     let {
@@ -90,7 +91,12 @@ export async function registerUser(req, res, next) {
 }
 
 export async function getUsers(req, res, next) {
-    const users = await getAll();
+    const page = req.query.page;
+    const size = req.query.size;
+    const items = req.query.sort;
+    const sort = parseSort(items);
+
+    const users = await getUserQuery(page, size, sort);
     res.setHeader('access-control-expose-headers', 'Authorization, Link, X-Total-Count');
     res.setHeader('x-total-count', users.length);
     // res.setHeader('link', 'api/users?page=0&size=20');
