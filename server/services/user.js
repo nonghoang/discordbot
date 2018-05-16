@@ -8,7 +8,6 @@ export async function create(options) {
 
     const user = new User({
         ...options,
-        authorities: ['ROLE_USER', 'ROLE_ADMIN'],
         password: passwordHash
     });
 
@@ -63,6 +62,10 @@ export function activeUser(id) {
 
 export function findByIdAndUpdate(id, updateObj) {
     return User.findByIdAndUpdate(id, updateObj).exec();
+}
+
+export async function removeUser(id) {
+    return User.findByIdAndRemove(id).exec();
 }
 
 export async function updatePassword(login, newPassword) {

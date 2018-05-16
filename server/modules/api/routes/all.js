@@ -7,7 +7,9 @@ import {
     getUser,
     getUsers,
     getAuthorities,
-    adminUpdateUser
+    adminUpdateUser,
+    deleteUser,
+    adminCreateUser
 } from '../controllers/admin/user'
 import {
     authenticate,
@@ -19,7 +21,9 @@ export default app => {
     app.get('/users', isAuthenticated, getUsers);
     app.get('/users/authorities', isAuthenticated, getAuthorities);
     app.get('/users/:login', isAuthenticated, getUser);
+    app.post('/users', isAuthenticated, adminCreateUser);
     app.put('/users', isAuthenticated, adminUpdateUser);
+    app.delete('/users/:login', isAuthenticated, deleteUser);
 
     app.post('/account', isAuthenticated, updateUser);
     app.post('/account/change-password', isAuthenticated, changePassword);
