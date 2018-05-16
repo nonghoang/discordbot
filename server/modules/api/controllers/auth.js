@@ -64,6 +64,7 @@ export const isAuthenticated = async (req, res, next) => {
 }
 
 export const getUserSigned = async (req, res, next) => {
+    req._user.password = null;
     res.status(200).json(req._user);
 }
 

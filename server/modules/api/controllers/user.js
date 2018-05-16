@@ -1,6 +1,5 @@
 import {
     create,
-    getUserQuery,
     update,
     findByUserAndPassword,
     updatePassword,
@@ -14,38 +13,6 @@ import {
 
 import { send } from 'services/ses';
 import { URL_VERIFY_EMAIL } from 'config/config';
-import { parseSort } from 'services/util';
-
-export async function createUser(req, res, next) {
-    let {
-        login,
-        password,
-        firstName,
-        lastName,
-        email,
-        activated,
-        langKey,
-        createdBy
-    } = req.body;
-
-    const user = await create({
-        login,
-        password,
-        firstName,
-        lastName,
-        email,
-        activated,
-        langKey,
-        createdBy
-    });
-
-    if (!user) {
-        return res.status(500).json({error: 'Error'});
-    }
-    res.status(200).json({
-        user: user
-    });
-}
 
 export async function registerUser(req, res, next) {
     let {
@@ -84,26 +51,13 @@ export async function registerUser(req, res, next) {
     }
 
     handleSendMail(user);
-
+    user.password = null;
     res.status(200).json({
         user: user
     });
 }
 
-export async function getUsers(req, res, next) {
-    const page = req.query.page;
-    const size = req.query.size;
-    const items = req.query.sort;
-    const sort = parseSort(items);
-
-    const users = await getUserQuery(page, size, sort);
-    res.setHeader('access-control-expose-headers', 'Authorization, Link, X-Total-Count');
-    res.setHeader('x-total-count', users.length);
-    // res.setHeader('link', 'api/users?page=0&size=20');
-    res.status(200).json(users);
-}
-
-export async function updateUsers(req, res, next) {
+export async function updateUser(req, res, next) {
     let {
         login,
         firstName,
@@ -127,6 +81,7 @@ export async function updateUsers(req, res, next) {
     if (!user) {
         return res.status(500).json({error: 'Error'});
     }
+    user.password = null;
     res.status(200).json({
         user: user
     });
@@ -153,6 +108,7 @@ export async function changePassword(req, res, next) {
     if (!updatedUser) {
         return res.status(500).json({error: 'Error'});
     }
+    updatedUser.password = null;
     res.status(200).json({
         user: updatedUser
     });
