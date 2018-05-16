@@ -10,7 +10,8 @@ import {
     create as createActive
 } from 'services/active';
 import {
-    AUTHORITIES
+    AUTHORITIES,
+    PASSWORD_DEFAULT
 } from 'config/config';
 
 import { parseSort } from 'services/util';
@@ -88,7 +89,7 @@ export async function adminCreateUser(req, res, next) {
         authorities
     } = req.body;
 
-    const password = '123456';
+    const password = PASSWORD_DEFAULT;
 
     const user = await create({
         password,
