@@ -58,7 +58,6 @@ export const isAuthenticated = async (req, res, next) => {
         });
     }
 
-    delete data.user.password;
     req._user = data.user;
     next();
 }
