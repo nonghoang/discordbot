@@ -1,7 +1,8 @@
 import {
     registerUser,
     updateUser,
-    changePassword
+    changePassword,
+    resetPassword
 } from '../controllers/user';
 import {
     getUser,
@@ -27,6 +28,7 @@ export default app => {
 
     app.post('/account', isAuthenticated, updateUser);
     app.post('/account/change-password', isAuthenticated, changePassword);
+    app.post('/account/reset-password/init', resetPassword);
 
     app.post('/register', registerUser);
     app.post('/authenticate', authenticate);

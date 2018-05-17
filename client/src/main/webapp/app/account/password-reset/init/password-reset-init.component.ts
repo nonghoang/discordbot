@@ -26,7 +26,9 @@ export class PasswordResetInitComponent implements OnInit, AfterViewInit {
         this.error = null;
         this.errorEmailNotExists = null;
 
-        this.passwordResetInitService.save(this.resetAccount.email).subscribe(
+        this.passwordResetInitService.save({
+            email: this.resetAccount.email
+        }).subscribe(
             () => {
                 this.success = 'OK';
             },

@@ -1,3 +1,5 @@
+const Uuid = require('uuid');
+
 import {
     create,
     update,
@@ -103,7 +105,7 @@ export async function changePassword(req, res, next) {
         });
     }
 
-    const updatedUser = updatePassword(user.login, newPassword);
+    const updatedUser = await updatePassword(user.login, newPassword);
 
     if (!updatedUser) {
         return res.status(500).json({error: 'Error'});
@@ -112,6 +114,35 @@ export async function changePassword(req, res, next) {
     res.status(200).json({
         user: updatedUser
     });
+}
+
+export async function resetPassword(req, res, next) {
+    let { email } = req.body;
+    const user = await findWithEmail(email);
+
+    if (!user) {
+        return res.status(500).json({error: 'Error'});
+    }
+
+    const newPassword = Uuid.v4();
+    const updatedUser = await updatePassword(user.login, newPassword);
+
+    if (!updatedUser) {
+        return res.status(500).json({error: 'Error'});
+    }
+
+    handleSendMailResetPassword(user, newPassword);
+
+    updatedUser.password = null;
+    res.status(200).json({
+        user: updatedUser
+    });
+}
+
+function handleSendMailResetPassword(user, password) {
+    const body = `Signalleaks reset password. New password: ${password} with email: ${user.email}, username: ${user.login}`;
+
+    send('Signalleaks reset password', [user.email], body);
 }
 
 async function handleSendMail(user) {
