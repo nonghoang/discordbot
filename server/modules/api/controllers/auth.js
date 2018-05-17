@@ -8,6 +8,7 @@ import {
     SESSION_SECRET,
     SESSION_TTL
 } from 'config/config';
+import { CODE } from 'config/message';
 
 export async function authenticate(req, res, next) {
     let {
@@ -18,11 +19,8 @@ export async function authenticate(req, res, next) {
     const user = await findByUserAndPassword(username, password);
 
     if (!user || !user.activated) {
-        return res.status(400).json({
-            message: 'error.validation',
-            path: '/api/authenticate',
-            status: 400,
-            title: 'Method argument not valid'
+        return res.status(409).json({
+            message: CODE[409]
         });
     }
 
@@ -40,10 +38,8 @@ export const isAuthenticated = async (req, res, next) => {
     let token = req.headers.authorization;
 
     if (!token) {
-        return res.status(400).json({
-            message: 'unAuthenticated',
-            status: 400,
-            title: 'Method argument not valid not has token'
+        return res.status(410).json({
+            message: CODE[410]
         });
     }
 
@@ -51,10 +47,8 @@ export const isAuthenticated = async (req, res, next) => {
     const data = await verify(token);
 
     if (!data.token || !data.user) {
-        return res.status(400).json({
-            message: 'unAuthenticated',
-            status: 400,
-            title: 'Method argument not valid'
+        return res.status(410).json({
+            message: CODE[410]
         });
     }
 
@@ -91,13 +85,13 @@ export const verify = async (token, refresh) => {
     const decoded = jwt.verify(token, SESSION_SECRET);
 
     if (!decoded) {
-        throw new Error('Invalid or expired JWT');
+        return false;
     }
 
     const user = await getUserById(decoded._id);
 
     if (!user) {
-        throw new Error('Invalid or expired JWT');
+        return false;
     }
 
     return refresh ? issueJWT(user) : {

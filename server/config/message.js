@@ -9,10 +9,12 @@ export const CODE = {
     408: 'Create user false',
     409: 'Authenticate user false',
     410: 'Unauthenticated',
+    411: 'Get user not found',
     500: 'Error server site',
     501: 'Register error when create new user',
     502: 'Error when update user',
     503: 'Change password false when save new password',
     505: 'Reset password false save new password',
-    506: 'Delete user false'
+    506: 'Delete user false',
+    507: 'Admin update user false',
 };

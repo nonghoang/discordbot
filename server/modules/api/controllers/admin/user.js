@@ -14,6 +14,7 @@ import {
     AUTHORITIES,
     PASSWORD_DEFAULT
 } from 'config/config';
+import { CODE } from 'config/message';
 
 import { parseSort } from 'services/util';
 
@@ -22,7 +23,9 @@ export async function getUser(req, res, next) {
     let user = await findWithLogin(login);
 
     if (!user) {
-        return res.status(400).json({error: 'Error'});
+        return res.status(411).json({
+            message: CODE[411]
+        });
     }
     user.password = null;
     res.status(200).json(user);
@@ -69,11 +72,8 @@ export async function adminUpdateUser(req, res, next) {
     });
 
     if (!user) {
-        return res.status(500).json({
-            message: 'error.updateUser',
-            path: '/api/users',
-            status: 400,
-            title: 'Update user error'
+        return res.status(507).json({
+            message: CODE[507]
         });
     }
     user.password = null;
@@ -107,11 +107,8 @@ export async function adminCreateUser(req, res, next) {
     });
 
     if (!user) {
-        return res.status(500).json({
-            message: 'error.createUser',
-            path: '/api/users',
-            status: 400,
-            title: 'Create user error'
+        return res.status(408).json({
+            message: CODE[408]
         });
     }
     user.password = null;
@@ -125,11 +122,8 @@ export async function deleteUser(req, res, next) {
     let user = await findWithLogin(login);
 
     if (!user) {
-        return res.status(500).json({
-            message: 'error.deleteUser',
-            path: '/api/users',
-            status: 400,
-            title: 'Delete user error'
+        return res.status(506).json({
+            message: CODE[506]
         });
     }
 

@@ -23,7 +23,6 @@ export class AuthServerProvider {
 
         function authenticateSuccess(resp) {
             const bearerToken = resp.headers.get('Authorization');
-            console.log('bearerToken', bearerToken);
             if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
                 const jwt = bearerToken.slice(7, bearerToken.length);
                 this.storeAuthenticationToken(jwt, credentials.rememberMe);

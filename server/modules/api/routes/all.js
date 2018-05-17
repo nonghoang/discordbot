@@ -26,6 +26,7 @@ export default app => {
     app.put('/users', isAuthenticated, adminUpdateUser);
     app.delete('/users/:login', isAuthenticated, deleteUser);
 
+    app.get('/account', isAuthenticated, getUserSigned);
     app.post('/account', isAuthenticated, updateUser);
     app.post('/account/change-password', isAuthenticated, changePassword);
     app.post('/account/reset-password/init', resetPassword);
@@ -33,5 +34,4 @@ export default app => {
     app.post('/register', registerUser);
     app.post('/authenticate', authenticate);
 
-    app.get('/account', isAuthenticated, getUserSigned);
 }

@@ -15,6 +15,7 @@ import {
 
 import { send } from 'services/ses';
 import { URL_VERIFY_EMAIL } from 'config/config';
+import { CODE } from 'config/message';
 
 export async function registerUser(req, res, next) {
     let {
@@ -27,16 +28,18 @@ export async function registerUser(req, res, next) {
     const userLogin = await findWithLogin(login);
 
     if (userLogin) {
-        return res.status(400).json({
-            type: 'https://www.jhipster.tech/problem/login-already-used'
+        return res.status(401).json({
+            type: 'https://www.jhipster.tech/problem/login-already-used',
+            message: CODE[401]
         });
     }
 
     const userEmail = await findWithEmail(email);
 
     if (userEmail) {
-        return res.status(400).json({
-            type: 'https://www.jhipster.tech/problem/email-already-used'
+        return res.status(402).json({
+            type: 'https://www.jhipster.tech/problem/email-already-used',
+            message: CODE[402]
         });
     }
 
@@ -49,7 +52,9 @@ export async function registerUser(req, res, next) {
     });
 
     if (!user) {
-        return res.status(500).json({error: 'Error'});
+        return res.status(501).json({
+            message: CODE[501]
+        });
     }
 
     handleSendMail(user);
@@ -81,7 +86,9 @@ export async function updateUser(req, res, next) {
     });
 
     if (!user) {
-        return res.status(500).json({error: 'Error'});
+        return res.status(502).json({
+            message: CODE[502]
+        });
     }
     user.password = null;
     res.status(200).json({
@@ -99,16 +106,17 @@ export async function changePassword(req, res, next) {
     const user = await findByUserAndPassword(userCurrent.login, currentPassword);
 
     if (!user) {
-        return res.status(400).json({
-            message: 'Change password fail',
-            status: 400,
+        return res.status(403).json({
+            message: CODE[403]
         });
     }
 
     const updatedUser = await updatePassword(user.login, newPassword);
 
     if (!updatedUser) {
-        return res.status(500).json({error: 'Error'});
+        return res.status(503).json({
+            message: CODE[503]
+        });
     }
     updatedUser.password = null;
     res.status(200).json({
@@ -121,14 +129,18 @@ export async function resetPassword(req, res, next) {
     const user = await findWithEmail(email);
 
     if (!user) {
-        return res.status(500).json({error: 'Error'});
+        return res.status(405).json({
+            message: CODE[405]
+        });
     }
 
     const newPassword = Uuid.v4();
     const updatedUser = await updatePassword(user.login, newPassword);
 
     if (!updatedUser) {
-        return res.status(500).json({error: 'Error'});
+        return res.status(505).json({
+            message: CODE[505]
+        });
     }
 
     handleSendMailResetPassword(user, newPassword);
