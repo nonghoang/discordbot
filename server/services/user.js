@@ -48,6 +48,10 @@ export function getUserQuery(page, size, sort) {
     }).sort(sort).exec();
 }
 
+export function getAll() {
+    return User.find().exec();
+}
+
 export function update(login, query) {
     return User.update({
         login: login

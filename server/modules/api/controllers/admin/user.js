@@ -4,7 +4,8 @@ import {
     update,
     findWithLogin,
     findByIdAndUpdate,
-    removeUser
+    removeUser,
+    getAll
 } from 'services/user';
 import {
     create as createActive
@@ -34,8 +35,11 @@ export async function getUsers(req, res, next) {
     const sort = parseSort(items);
 
     const users = await getUserQuery(page, size, sort);
+    const allUser = await getAll();
+
     res.setHeader('access-control-expose-headers', 'Authorization, Link, X-Total-Count');
-    res.setHeader('x-total-count', users.length);
+    res.setHeader('x-total-count', allUser.length);
+
     res.status(200).json(users);
 }
 
