@@ -81,7 +81,7 @@ function postMessage(message, channel, channelId, isPostToTelegram) {
 function postMessageToTelegram(channelId, message) {
     if (chatId && ctxBot) {
         if (true) {
-            const text = '\n\n\nIf you want to receive the signal immediately, visit the website: https://signalleaks.com';
+            const text = '\n\nIf you want to receive the signal immediately, visit the website: https://signalleaks.com';
             ctxBot.telegram.sendMessage(chatId, message.content + text);
 
             const attachments = JSON.parse(message.attachments);
