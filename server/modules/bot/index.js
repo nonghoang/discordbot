@@ -60,7 +60,7 @@ function postMessage(message, channel, channelId, isPostToTelegram) {
     if (isPostToTelegram) {
         setTimeout(() => {
             postMessageToTelegram(channelId, message);
-        }, 360000); // 6 minute 360000
+        }, 10000); // 6 minute 360000
     }
 
     const content = message.content;
@@ -81,8 +81,8 @@ function postMessage(message, channel, channelId, isPostToTelegram) {
 function postMessageToTelegram(channelId, message) {
     if (chatId && ctxBot) {
         if (true) {
-            const text = '\n\nIf you want to receive the signal immediately, visit the website: https://signalleaks.com';
-            ctxBot.telegram.sendMessage(chatId, message.content + text);
+            // const text = '\n\nIf you want to receive the signal immediately, visit the website: https://signalleaks.com';
+            ctxBot.telegram.sendMessage(chatId, message.content);
 
             const attachments = JSON.parse(message.attachments);
 
