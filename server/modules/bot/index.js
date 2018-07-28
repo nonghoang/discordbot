@@ -40,26 +40,28 @@ export function bot() {
             const channel = client.channels.get(item.to);
 
             setInterval(() => {
-                handlePostMessage(channel, item.to);
-            }, 3000);
+                handlePostMessage(channel, item.to, item.isPostToTelegram);
+            }, 8000); // 8 second 8000
         });
     });
 
     client.login(BOT_TOKEN);
 }
 
-async function handlePostMessage(channel, channelId) {
+async function handlePostMessage(channel, channelId, isPostToTelegram) {
     const messages = await getMessageNotPosted(channelId);
 
     messages.forEach(message => {
-        postMessage(message, channel, channelId);
+        postMessage(message, channel, channelId, isPostToTelegram);
     })
 }
 
-function postMessage(message, channel, channelId) {
-    setTimeout(() => {
-        postMessageToTelegram(channelId, message);
-    }, 6000);
+function postMessage(message, channel, channelId, isPostToTelegram) {
+    if (isPostToTelegram) {
+        setTimeout(() => {
+            postMessageToTelegram(channelId, message);
+        }, 360000); // 6 minute 360000
+    }
 
     const content = message.content;
     const attachments = JSON.parse(message.attachments);
@@ -79,7 +81,8 @@ function postMessage(message, channel, channelId) {
 function postMessageToTelegram(channelId, message) {
     if (chatId && ctxBot) {
         if (true) {
-            ctxBot.telegram.sendMessage(chatId, message.content);
+            const text = '\n\n\nIf you want to receive the signal immediately, visit the website: https://signalleaks.com';
+            ctxBot.telegram.sendMessage(chatId, message.content + text);
 
             const attachments = JSON.parse(message.attachments);
 
